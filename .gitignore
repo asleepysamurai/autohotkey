@@ -1,0 +1,9 @@
+# Compiled scripts (Ahk2Exe output)
+*.exe
+
+# Editor / OS clutter
+.vscode/
+*.bak
+*~
+Thumbs.db
+desktop.ini
