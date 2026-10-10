@@ -16,10 +16,13 @@ A_MenuMaskKey := "vkE8"
 ; No "~" prefix, so the native combo is swallowed: Alt+Space never opens the
 ; window's system menu.
 !Space:: {
-    ; Start won't open while Alt is still physically down (the OS sees the
-    ; combo as Ctrl+Alt+Esc / dismisses Start on Alt re-press), so wait for it.
-    KeyWait "Alt"
-    ; Ctrl+Esc is the OS-level "open Start" command; unlike sending {LWin}, it
-    ; can't fold into some other Win+<key> shortcut.
-    Send "^{Esc}"
+    ; Fire on Space release, even if Alt is still held.
+    KeyWait "Space"
+    ; Start won't open while Alt is logically down (the OS sees Ctrl+Alt+Esc),
+    ; and a plain Send would re-press Alt afterwards, dismissing Start. So
+    ; release Alt ourselves under {Blind} (no restore), tapping vkE8 first so
+    ; the bare Alt up doesn't focus the app's menu bar. Ctrl+Esc is the
+    ; OS-level "open Start" command; unlike {LWin}, it can't fold into some
+    ; other Win+<key> shortcut.
+    Send "{Blind}{vkE8}{Alt up}^{Esc}"
 }
